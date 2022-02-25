@@ -165,34 +165,42 @@ df = pandas.read_csv()
 
 Quel est le type de l'objet `df`?
 ```
-
+df = dataframe, c'est le format dans lequel pandas gere les taleau
 ```
 
 ##### Descriptions d'une table de données
 Que permettent les méthodes suivantes?
 ###### df.shape
 ```
+donne la taille du tableau
 ```
 ###### df.head()
 ```
+donne les 5 premieres lignes
 ```
 ###### df.tail()
 ```
+donne les 5 premieres lignes
 ```
 ###### df.columns
 ```
+donne les noms de colonnes
 ```
 ###### df.dtypes
 ```
+donne les types de chaque colonnes
 ```
 ###### df.info
 ```
+renvoie la dataframe
 ```
 ###### df.describe()
 ```
+affiche des stats sur des colonnes "dtypes"
 ```
 ###### df.dropna()
 ```
+supprime les NA
 ```
 
 ##### Accès aux éléments d'une table de données
@@ -203,6 +211,10 @@ values = df[['Description', 'Gene Symbol']]
 
 Quel est le type de `values` ?
 
+```
+C'est un dataframe pandas
+```
+
 Verifiez si certaines méthodes de `DataFrame` lui sont applicables.
 Ce type supporte l'accès par indice et les slice `[a:b]`
 
@@ -212,17 +224,19 @@ On peut accéder aux valeurs du DataFrame via des indices ou plages d'indice. La
 Il y a différentes manières de le faire, l'utilisation de `.iloc[slice_ligne,slice_colonne]` constitue une des solutions les plus simples. N'oublions pas que shape permet d'obtenir les dimensions (lignes et colonnes) du DataFrame.
 ###### Acceder aux cinq premières lignes de toutes les colonnes
 ```python
-
+values[1:6]
+df.iloc[1:6,]
 ```
 
 ###### Acceder à toutes les lignes de la dernière colonne
 ```python
-
+values['Gene Symbol']
+df.iloc[:,-1] #affiche la derniere colonne
 ```
 
 ###### Acceder aux cinq premières lignes des colonnes 0, 2 et 3
 ```python
-
+df.iloc[1:6,[0,2,3]]
 ```
 
 ##### Conversion de type
@@ -272,7 +286,14 @@ df.loc[ df['Gene Symbol'].isin(['fadR', 'arcA'] ) ]
 
 ##### 3. A partir de cette échantillon de ratio d'abondance,  estimez la moyenne <img src="https://render.githubusercontent.com/render/math?math=\mu"> et l'ecart-type <img src="https://render.githubusercontent.com/render/math?math=\sigma"> d'une loi normale.
 ```
+log2_ratio = df["Log2 Corrected Abundance Ratio"].tolist()
+n=len(log2_ratio)
 
+type(log2_ratio)
+mean, s2=(np.average(log2_ratio),np.var(log2_ratio))
+sigma2 = (n/(n-1))*s2
+
+f"{mean} {s2} -> {sigma2}"
 
 ```
 
